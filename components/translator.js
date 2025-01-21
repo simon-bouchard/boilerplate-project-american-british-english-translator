@@ -65,19 +65,34 @@ class Translator {
       		});
     	}
 
-		let timeTranslation = this.timeTranslation;
-		if (highlightTranslations) {
-			timeTranslation.replacement = '<span class=highlight>' + timeTranslation.replacement + '</span>'
-		}
+		translatedPhrase = translatedPhrase.replace(
+    		/\b(\d{1,2})([:.])(\d{2})\b/g,
+    		(match, p1, separator, p2) => {
+      			let replacement;
 
-		translatedPhrase = translatedPhrase.replace(this.timeTranslation.pattern, this.timeTranslation.replacement)
+      			if (separator === ':' && this.timeTranslation.replacement === '$1.$2') {
+        			replacement = `${p1}.${p2}`;
 
+      			} else if (separator === '.' && this.timeTranslation.replacement === '$1:$2') {
+        			replacement = `${p1}:${p2}`;
+
+      			} else {
+        			replacement = match;
+      			}
+
+      			if (highlightTranslations) {
+        			replacement = `<span class="highlight">${replacement}</span>`;
+      			}
+
+      			return replacement;
+    		}
+
+		)
 		if (!translatedPhrase || translatedPhrase === this.phrase) {
-			return 'Everything looks good to me!'
+			return 'Everything looks good to me!';
 		}
-
-    	return translatedPhrase
-  	}
+		return translatedPhrase
+	}
 
 }
 
