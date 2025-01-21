@@ -64,7 +64,7 @@ suite('Functional Tests', () => {
 			})
 			.end((err, res) => {
 				assert.equal(res.status, 200, 'Status should be 200'),
-				assert.equal(res.body.error, 'No text to translate', 'Error message should match'),
+				assert.equal(res.body.error, 'Required field(s) missing', 'Error message should match'),
 				done()
 			})
 	})
@@ -96,6 +96,7 @@ suite('Functional Tests', () => {
 			.keepOpen()
 			.post('/api/translate/')
 			.send({
+				text: '',
 				locale: locale
 			})
 			.end((err, res) => {

@@ -9,12 +9,12 @@ module.exports = function (app) {
     .post((req, res) => {
 
 		let {text, locale} = req.body;
-		if (!text) {
-			return res.json({error: 'No text to translate'})
+		if (text === undefined || locale === undefined) {
+			return res.json({error: 'Required field(s) missing'})
 		}
 
-		if (!text || !locale) {
-			return res.json({error: 'Required field(s) missing'})
+		if (text === '') {
+			return res.json({error: 'No text to translate'})
 		}
 
 		if (locale !== 'american-to-british' && locale !== 'british-to-american') {
