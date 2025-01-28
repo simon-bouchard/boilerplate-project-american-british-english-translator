@@ -45,7 +45,7 @@ class Translator {
 
 	   	 for (let map of this.translationMaps) {
    	 	 	const pattern = new RegExp(
-				`\\b(${Object.keys(map).map(key => key.replace(/\./g, '\\.')).join('|')})(?=\\s|$|[.,!?])`,
+				`\\b(${object.keys(map).map(key => key.replace(/\./g, '\\.')).join('|')})(?=\\s|$|[.,!?])`,
         		'gi'
       		);
 
